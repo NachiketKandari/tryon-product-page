@@ -57,10 +57,11 @@ test.describe("PDP", () => {
     expect(hero?.width).toBeGreaterThan(tile?.width ?? 0);
   });
 
-  test("size selection, add to bag, checkout feedback", async ({ page }) => {
+  test("size selection, low stock state, add to cart, checkout feedback", async ({ page }) => {
     await page.goto("/");
     await page.getByRole("button", { name: "M", exact: true }).click();
-    const addToBag = page.getByRole("button", { name: "Add to bag" });
+    await expect(page.getByText("Only 1 left in stock")).toBeVisible();
+    const addToBag = page.getByRole("button", { name: "Add to cart" });
     await expect(addToBag).toBeEnabled();
     await addToBag.click();
 

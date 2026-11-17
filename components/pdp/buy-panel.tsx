@@ -1,6 +1,6 @@
 "use client";
 
-import { ChevronDown, ImagePlus, Ruler } from "lucide-react";
+import { ChevronDown, ImagePlus } from "lucide-react";
 import { useState } from "react";
 
 import { SizeGuide } from "@/components/pdp/size-guide";
@@ -24,14 +24,14 @@ function AccordionRow({
 }) {
   return (
     <details className="group border-b border-ink" open={defaultOpen}>
-      <summary className="pdp-copy flex min-h-[49px] cursor-pointer list-none items-center justify-between gap-4 py-4 desktop:min-h-0 desktop:py-8 [&::-webkit-details-marker]:hidden">
+      <summary className="pdp-copy flex min-h-[49px] cursor-pointer list-none items-center justify-between gap-4 pt-4 pb-4 group-open:pb-0 desktop:min-h-0 desktop:pt-8 desktop:pb-8 desktop:group-open:pb-0 [&::-webkit-details-marker]:hidden">
         {title}
         <ChevronDown
           className="size-3 shrink-0 transition-transform duration-200 group-open:rotate-180"
           strokeWidth={1.25}
         />
       </summary>
-      <div className="pdp-copy pb-4 text-ink-muted desktop:pb-8">{children}</div>
+      <div className="pdp-copy mt-3 pb-4 text-ink-muted desktop:pb-8">{children}</div>
     </details>
   );
 }
@@ -45,22 +45,19 @@ export function BuyPanel({ hasUserImages, onTryOn, product }: BuyPanelProps) {
   return (
     <div className="desktop:py-[140px] desktop:pr-[80px] desktop:pl-[80px]">
       <div className="grid gap-10 px-(--gutter) pt-6 pb-10 desktop:px-0 desktop:py-0">
-        <div className="flex items-start justify-between gap-4">
-          <div className="grid gap-1">
-            <h1 className="pdp-title">{product.title}</h1>
-          </div>
-          <p className="pdp-price whitespace-nowrap pt-0.5">{formatAmount(product.price)}</p>
+        <div className="grid gap-3">
+          <h1 className="pdp-title">{product.title}</h1>
+          <p className="pdp-price">{formatAmount(product.price)}</p>
         </div>
 
         <fieldset className="grid gap-3">
           <legend className="pdp-label">Colors</legend>
-          <div className="flex items-center gap-3">
+          <div className="flex items-center">
             <span
               aria-label={`${product.colorName} selected`}
-              className="size-4 bg-ink ring-1 ring-ink ring-offset-2"
+              className="size-4 border border-ink bg-ink"
               role="img"
             />
-            <span className="pdp-copy text-ink-muted">{product.colorName}</span>
           </div>
         </fieldset>
 
@@ -68,11 +65,10 @@ export function BuyPanel({ hasUserImages, onTryOn, product }: BuyPanelProps) {
           <div className="flex items-baseline justify-between gap-4">
             <legend className="pdp-label">Size</legend>
             <button
-              className="pdp-copy flex items-center gap-1.5 text-ink-muted underline underline-offset-4 focus-ring"
+              className="pdp-label flex items-center gap-1.5 text-[#666666] focus-ring"
               onClick={() => setSizeGuideOpen(true)}
               type="button"
             >
-              <Ruler className="size-3" strokeWidth={1.25} />
               Size recommendation
             </button>
           </div>
@@ -83,7 +79,7 @@ export function BuyPanel({ hasUserImages, onTryOn, product }: BuyPanelProps) {
               return (
                 <button
                   aria-pressed={selected}
-                  className={`pdp-label flex h-[26px] min-w-8 items-center justify-center border px-2 transition-colors focus-ring desktop:h-11 desktop:px-4 ${
+                  className={`pdp-label flex h-[26px] min-w-8 items-center justify-center border px-1.5 transition-colors focus-ring desktop:h-11 desktop:px-4 ${
                     selected
                       ? "border-ink bg-ink text-inverse"
                       : "border-ink text-ink hover:border-ink desktop:border-[#DCDCDC] desktop:text-ink-muted desktop:hover:text-ink"
@@ -98,20 +94,16 @@ export function BuyPanel({ hasUserImages, onTryOn, product }: BuyPanelProps) {
             })}
           </div>
 
-          <p aria-live="polite" className="pdp-copy min-h-4">
-            {lowStock ? (
-              <span className="text-ink desktop:text-[#A66100]">Only 1 left in stock</span>
-            ) : size ? (
-              <span className="text-ink-muted">In stock · ships in 1–2 business days</span>
-            ) : (
-              <span className="text-ink-muted">Select a size to add to bag</span>
-            )}
-          </p>
+          {lowStock ? (
+            <p aria-live="polite" className="pdp-label mt-3 text-ink desktop:text-[#A66100]">
+              Only 1 left in stock
+            </p>
+          ) : null}
         </fieldset>
 
         <div className="grid gap-2.5">
           <button
-            className={`pdp-cta flex h-10 w-full items-center justify-center ${
+            className={`pdp-cta flex h-12 w-full items-center justify-center ${
               size
                 ? "bg-[#353535] text-inverse hover:bg-ink"
                 : "cursor-not-allowed bg-[#DFDFDF] text-white"
@@ -128,11 +120,11 @@ export function BuyPanel({ hasUserImages, onTryOn, product }: BuyPanelProps) {
             }}
             type="button"
           >
-            {size ? "Add to bag" : "select size"}
+            {size ? "Add to cart" : "Select size"}
           </button>
 
           <button
-            className="pdp-cta flex h-10 w-full items-center justify-center gap-2 border border-[#353535] text-[#353535] transition-colors hover:bg-[#353535] hover:text-inverse focus-ring"
+            className="pdp-cta flex h-12 w-full items-center justify-center gap-2 border border-[#353535] text-[#353535] transition-colors hover:bg-[#353535] hover:text-inverse focus-ring"
             onClick={onTryOn}
             type="button"
           >
@@ -167,7 +159,7 @@ export function BuyPanel({ hasUserImages, onTryOn, product }: BuyPanelProps) {
           </AccordionRow>
         </div>
 
-        <p className="pdp-copy font-medium text-ink-muted">
+        <p className="pdp-label font-medium text-[#666666]">
           Need help?{" "}
           <a
             className="underline underline-offset-4 transition-colors hover:text-ink"

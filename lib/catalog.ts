@@ -61,7 +61,7 @@ export const product: Product = {
     "International delivery available at checkout",
   ],
   sizes: ["XXS", "XS", "S", "M", "L", "XL", "XXL"],
-  lowStockSizes: ["XXS", "XL"],
+  lowStockSizes: ["M"],
   images: [
     image("/images/product/dress-front.jpeg", "Black racer back mini dress, front view"),
     image("/images/product/dress-back.jpeg", "Black racer back mini dress, back view"),

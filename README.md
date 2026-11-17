@@ -86,7 +86,10 @@ How the Figma export works (the plugin in the template repo, and how frames were
 - **Typography is DM Sans throughout.** The design file uses Helvetica for the footer and mobile
   header and Inter for modal buttons; the brand direction is DM Sans, so those are normalised.
 - **Labels are sentence-cased** (`Colors`, `Description`, `Details`, `Shipping`, `You may also
-  like`) per product direction; Figma draws them lowercase.
+  like`) per product direction; Figma draws them lowercase. The product title keeps Figma's
+  12/600 uppercase, −0.02em treatment, stacked above the 14/600 price.
+- **Low stock** is wired to size **M** (`Only 1 left in stock`, amber on desktop, black on mobile)
+  so the designed low-stock state is reachable.
 - **Buttons use the design-I 4 px radius** even though the inherited template token layer is
   zero-radius. Type sizes, spacing, gallery ratios and the 800/592 split follow the Figma file.
 - **Mobile gallery is a swipe carousel** (the frame draws a single hero); it keeps the 2:3 ratio.
