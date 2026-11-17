@@ -1,8 +1,6 @@
 "use client";
 
-import { ArrowRight, ArrowUpRight } from "lucide-react";
-import Image from "next/image";
-import Link from "next/link";
+import { ArrowRight } from "lucide-react";
 import { useState } from "react";
 
 import { useFeedback } from "@/components/site/feedback-provider";
@@ -49,8 +47,6 @@ const COLUMNS = [
     title: "The Brand",
     links: [
       { label: "About Us", href: "#service" },
-      { label: "Atelier", href: "#service" },
-      { label: "Journal", href: "#service" },
     ],
   },
   {
@@ -78,29 +74,25 @@ export function SiteFooter() {
   }
 
   return (
-    <footer className="border-t border-rule bg-paper pt-16 desktop:pt-20" id="service">
+    <footer className="border-t border-[#DFDFDF] bg-paper pt-16 pb-10 desktop:pt-[120px] desktop:pb-[120px]" id="service">
       <div className="px-(--gutter)">
         <div className="grid grid-cols-2 gap-x-6 gap-y-10 desktop:grid-cols-[1.6fr_1fr_1fr_1fr_1fr_1.7fr] desktop:gap-x-8">
           <div className="col-span-2 grid content-start gap-5 tablet:col-span-1">
             <div className="grid gap-2">
-              <p className="type-label text-ink-muted">Flagship Store</p>
+              <p className="footer-heading">Flagship Store</p>
               <p className="type-body-sm max-w-[260px] text-ink-muted">
                 123 Example Street, Mumbai, India
               </p>
               <p className="type-body-sm text-ink-muted">Open daily, 11am – 8pm</p>
             </div>
-            <Image
-              alt="Lorem Ipsum"
-              className="mt-2 h-auto w-[260px]"
-              height={82}
-              src="/brand/wordmark.png"
-              width={950}
-            />
+            <p className="mt-2 text-[36px] leading-[54px] font-normal tracking-[0.02em] text-ink uppercase">
+              Lorem Ipsum
+            </p>
           </div>
 
           {COLUMNS.map((column) => (
             <div className="grid content-start gap-2" key={column.title}>
-              <p className="type-label text-ink-muted">{column.title}</p>
+              <p className="footer-heading">{column.title}</p>
               <ul className="grid" role="list">
                 {column.links.map((link) => (
                   <li key={link.label}>
@@ -135,7 +127,7 @@ export function SiteFooter() {
           ))}
 
           <div className="col-span-2 grid content-start gap-3 tablet:col-span-3 desktop:col-span-1">
-            <p className="type-label text-ink-muted">Subscribe to Our Newsletters</p>
+            <p className="footer-heading">Subscribe to Our Newsletters</p>
             <form
               className="flex items-center border-b border-ink pb-2"
               onSubmit={(event) => {
@@ -174,26 +166,6 @@ export function SiteFooter() {
           </div>
         </div>
 
-        <div className="mt-14 flex flex-col gap-5 border-t border-rule py-4 tablet:flex-row tablet:items-center tablet:justify-between">
-          <p className="type-label text-ink-muted">
-            © 2026 · Lorem Ipsum <span className="mx-1">·</span> Website by UniPlus
-          </p>
-          <div className="flex flex-wrap items-center gap-x-5 gap-y-3">
-            <span className="type-label text-ink-muted">INR ₹</span>
-            <span className="type-label text-ink-muted">VISA</span>
-            <span className="type-label text-ink-muted">MASTERCARD</span>
-            <span className="type-label text-ink-muted">AMEX</span>
-            <Link
-              aria-label="Instagram"
-              className="focus-ring flex size-6 items-center justify-center text-ink-muted"
-              href="https://www.instagram.com/"
-              rel="noreferrer"
-              target="_blank"
-            >
-              <ArrowUpRight className="size-4" strokeWidth={1.25} />
-            </Link>
-          </div>
-        </div>
       </div>
     </footer>
   );

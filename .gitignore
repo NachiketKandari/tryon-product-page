@@ -34,3 +34,8 @@ yarn-error.log*
 # local screenshots + browser traces
 /shots/
 /.playwright-mcp/
+
+# playwright
+/test-results/
+/playwright-report/
+/blob-report/

@@ -100,6 +100,7 @@ function BagDrawer() {
         aria-label="Shopping bag"
         aria-modal="true"
         className="relative flex h-full w-full max-w-[440px] flex-col bg-paper"
+        data-testid="bag-drawer"
         role="dialog"
       >
         <div className="flex h-(--header-bar-h) shrink-0 items-center justify-between border-b border-rule px-(--gutter)">

@@ -44,7 +44,7 @@ export function ProductMedia({
   }
 
   return (
-    <div className="relative">
+    <div className="relative" data-testid="pdp-gallery">
       {/* Mobile: 2:3 snap carousel, full-bleed */}
       <div
         className="scrollbar-hide flex snap-x snap-mandatory overflow-x-auto desktop:hidden"
@@ -61,13 +61,13 @@ export function ProductMedia({
                   // eslint-disable-next-line @next/next/no-img-element
                   <img
                     alt={`Your uploaded image ${index + 1}`}
-                    className="h-full w-full object-cover"
+                    className="h-full w-full bg-paper object-contain"
                     src={src}
                   />
                 ) : (
                   <Image
                     alt={image?.alt ?? "Product image"}
-                    className="object-cover"
+                    className="bg-paper object-contain"
                     fill
                     priority={index === 0}
                     sizes="100vw"
@@ -139,7 +139,7 @@ export function ProductMedia({
                 {/* eslint-disable-next-line @next/next/no-img-element */}
                 <img
                   alt="Your uploaded hero image"
-                  className="h-full w-full object-cover"
+                  className="h-full w-full bg-paper object-contain"
                   src={desktopHero}
                 />
                 <span className="type-label absolute top-3 left-3 bg-paper px-2 py-1 text-ink">
@@ -157,7 +157,7 @@ export function ProductMedia({
             ) : (
               <Image
                 alt={hero.alt}
-                className="object-cover"
+                className="bg-paper object-contain"
                 fill
                 priority
                 sizes="(min-width: 1100px) 56vw, 100vw"
@@ -175,11 +175,11 @@ export function ProductMedia({
                 ? `Your uploaded image ${index + 2}`
                 : (productTiles[index - userTileCount]?.alt ?? "Product detail");
               return (
-                <figure className="relative aspect-[3/4] overflow-hidden bg-surface" key={src}>
+                <figure className="relative aspect-[2/3] overflow-hidden bg-surface" key={src}>
                   {isUser ? (
                     <>
                       {/* eslint-disable-next-line @next/next/no-img-element */}
-                      <img alt={alt} className="h-full w-full object-cover" src={src} />
+                      <img alt={alt} className="h-full w-full bg-paper object-contain" src={src} />
                       <button
                         aria-label={`Remove your image ${index + 2}`}
                         className="absolute top-2 right-2 flex size-7 items-center justify-center bg-paper/90 text-ink transition-colors hover:bg-ink hover:text-inverse"
@@ -192,7 +192,7 @@ export function ProductMedia({
                   ) : (
                     <Image
                       alt={alt}
-                      className="object-cover"
+                      className="bg-paper object-contain"
                       fill
                       sizes="(min-width: 1100px) 28vw, 50vw"
                       src={src}

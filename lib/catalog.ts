@@ -104,8 +104,8 @@ export const recommendations: Recommendation[] = [
     handle: "slit-racer-back-shirt",
     price: 7500,
     image: image(
-      "/images/recommendations/slit-racer-back-shirt.jpeg",
-      "White shirt with black flared trousers",
+      "/images/recommendations/big-collar-shirt.jpeg",
+      "White sheer shirt with a midi skirt",
     ),
   },
 ];

@@ -96,6 +96,7 @@ export function FeedbackProvider({ children }: { children: React.ReactNode }) {
             aria-label={sheet.title}
             aria-modal="true"
             className="relative flex h-full w-full max-w-[592px] flex-col bg-paper"
+            data-testid="info-sheet"
             role="dialog"
           >
             <div className="flex h-(--header-bar-h) shrink-0 items-center justify-between border-b border-rule px-(--gutter)">
@@ -124,7 +125,7 @@ export function FeedbackProvider({ children }: { children: React.ReactNode }) {
       ) : null}
 
       {searchOpen ? (
-        <div className="fixed inset-0 z-(--z-overlay) bg-paper">
+        <div className="fixed inset-0 z-(--z-overlay) bg-paper" data-testid="search-overlay">
           <div className="mx-auto flex h-full w-full max-w-[880px] flex-col px-(--gutter)">
             <div className="flex h-(--header-bar-h) shrink-0 items-center gap-4 border-b border-ink">
               <Search className="size-5 shrink-0" strokeWidth={1.25} />

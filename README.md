@@ -12,8 +12,9 @@ Everything runs client-side. Uploaded images never leave the browser.
 ```bash
 npm install
 npm run dev      # http://localhost:3000
-npm run build    # production build
-npm start        # serve the production build
+npm run build      # production build
+npm start          # serve the production build
+npm run test:e2e   # headless Playwright interaction suite
 ```
 
 Node **20.9+** (`.nvmrc` pins 22). **No environment variables are required.** This app is not
@@ -44,13 +45,25 @@ npx vercel --prod # production
 | ---- | ------------ |
 | Entry points | “Upload your images” in the buy column, the pill on the hero, and the upload button on the mobile hero. |
 | Bulk upload | File picker (`multiple`), camera capture, or drag-and-drop. Up to **5 images**, 12 MB each, JPG/PNG/WebP/HEIC. |
-| Auto-arrange | Image 1 → enlarged hero (800 × 1432 desktop, 2:3 mobile). Images 2–5 → the two-up gallery grid. |
+| Auto-arrange | Image 1 → enlarged hero (800 × 1432 desktop, 2:3 mobile). Images 2–5 → the two-up gallery grid. Uploaded images use `object-contain`, so the whole photo is visible — never cropped. |
 | Rearrange | In the studio: drag rows, use ↑ / ↓, or promote any image with **Hero**. |
 | Apply | “Add N images to the page” replaces the product media. “Reset to product photos” restores them. |
+| Scrolling | The studio sheet is a single scroll container on both mobile and desktop (`studio-scroll`, `overscroll-contain`); the page scroll is restored when it closes. |
 | Persistence | `blob:` URLs only — refreshing the page clears the images (privacy by default). |
 
 The studio lives in `components/try-on/try-on-studio.tsx`; the gallery swap lives in
 `components/pdp/product-media.tsx`.
+
+## Tests
+
+`npm run test:e2e` runs a headless Chromium suite against a production build on port 3100:
+
+- desktop **and** Pixel 5 mobile projects;
+- gallery geometry (one hero + two-up), no-crop containment, recommendations 2-up scroller;
+- upload: 1 image, bulk 5, reorder/promote, reset, scroll inside the sheet, body-scroll unlock;
+- size guide, accordions, size → add to bag → checkout feedback, search, wishlist, category/help
+  panels, footer policies, newsletter, mobile menu;
+- a final sweep that every visible button has a name and no `href="#"` links remain.
 
 ## Design source
 

@@ -146,11 +146,14 @@ export function TryOnStudio({
       <div
         aria-label="Upload your images"
         aria-modal="true"
-        className="relative flex h-full w-full flex-col overflow-y-auto bg-paper desktop:h-auto desktop:max-h-[92dvh] desktop:max-w-[1040px] desktop:flex-row desktop:overflow-hidden"
+        className="studio-scroll relative flex h-full max-h-[100dvh] w-full flex-col overflow-y-auto overscroll-contain bg-paper desktop:h-auto desktop:max-h-[92dvh] desktop:max-w-[1040px] desktop:flex-row"
+        data-testid="studio-dialog"
         role="dialog"
       >
         {/* Preview */}
-        <div className="relative flex flex-col bg-surface desktop:min-h-[640px] desktop:flex-1">
+        <div className="relative flex shrink-0 flex-col bg-surface desktop:min-h-0 desktop:flex-1"
+          data-testid="studio-preview"
+        >
           <div className="flex items-center justify-between border-b border-rule px-5 py-3 desktop:hidden">
             <p className="type-label">Upload your images</p>
             <button
@@ -168,7 +171,11 @@ export function TryOnStudio({
               <>
                 <figure className="relative aspect-[4/5] w-full max-w-[420px] overflow-hidden bg-paper shadow-modal">
                   {/* eslint-disable-next-line @next/next/no-img-element */}
-                  <img alt="Your uploaded image, enlarged" className="h-full w-full object-cover" src={first} />
+                  <img
+                    alt="Your uploaded image, enlarged"
+                    className="h-full w-full bg-paper object-contain"
+                    src={first}
+                  />
                   <span className="type-label absolute top-3 left-3 bg-paper px-2 py-1">
                     Your image · enlarged
                   </span>
@@ -192,9 +199,13 @@ export function TryOnStudio({
                 {drafts.length > 1 ? (
                   <div className="grid w-full max-w-[420px] grid-cols-2 gap-2">
                     {drafts.slice(1).map((src, index) => (
-                      <figure className="relative aspect-[3/4] overflow-hidden bg-paper" key={src}>
+                      <figure className="relative aspect-[2/3] overflow-hidden bg-paper" key={src}>
                         {/* eslint-disable-next-line @next/next/no-img-element */}
-                        <img alt={`Your uploaded image ${index + 2}`} className="h-full w-full object-cover" src={src} />
+                        <img
+                          alt={`Your uploaded image ${index + 2}`}
+                          className="h-full w-full bg-paper object-contain"
+                          src={src}
+                        />
                         <button
                           aria-label={`Remove image ${index + 2}`}
                           className="absolute top-1.5 right-1.5 flex size-6 items-center justify-center bg-paper/90 text-ink transition-colors hover:bg-ink hover:text-inverse"
@@ -291,7 +302,9 @@ export function TryOnStudio({
         </div>
 
         {/* Controls */}
-        <div className="flex w-full shrink-0 flex-col desktop:w-[360px] desktop:border-l desktop:border-rule">
+        <div className="flex w-full shrink-0 flex-col desktop:min-h-0 desktop:w-[360px] desktop:border-l desktop:border-rule"
+          data-testid="studio-controls"
+        >
           <div className="hidden items-center justify-between border-b border-rule px-6 py-4 desktop:flex">
             <p className="type-label">Upload your images</p>
             <button

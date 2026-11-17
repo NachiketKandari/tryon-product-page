@@ -86,7 +86,7 @@ export function BuyPanel({ hasUserImages, onTryOn, product }: BuyPanelProps) {
                   className={`pdp-label flex h-[26px] min-w-8 items-center justify-center border px-2 transition-colors focus-ring desktop:h-11 desktop:px-4 ${
                     selected
                       ? "border-ink bg-ink text-inverse"
-                      : "border-[#DCDCDC] text-ink-muted hover:border-ink hover:text-ink"
+                      : "border-ink text-ink hover:border-ink desktop:border-[#DCDCDC] desktop:text-ink-muted desktop:hover:text-ink"
                   }`}
                   key={option}
                   onClick={() => setSize(option)}
@@ -100,7 +100,7 @@ export function BuyPanel({ hasUserImages, onTryOn, product }: BuyPanelProps) {
 
           <p aria-live="polite" className="pdp-copy min-h-4">
             {lowStock ? (
-              <span className="text-[#A66100]">Only 1 left in stock</span>
+              <span className="text-ink desktop:text-[#A66100]">Only 1 left in stock</span>
             ) : size ? (
               <span className="text-ink-muted">In stock · ships in 1–2 business days</span>
             ) : (
@@ -167,7 +167,7 @@ export function BuyPanel({ hasUserImages, onTryOn, product }: BuyPanelProps) {
           </AccordionRow>
         </div>
 
-        <p className="pdp-copy text-ink-muted">
+        <p className="pdp-copy font-medium text-ink-muted">
           Need help?{" "}
           <a
             className="underline underline-offset-4 transition-colors hover:text-ink"

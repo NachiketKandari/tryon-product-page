@@ -512,12 +512,54 @@
   }
 }
 
-@utility pdp-rec {
-  font-size: 0.875rem;
+@utility pdp-rec-name {
+  font-size: 0.75rem;
+  line-height: 1rem;
+  font-weight: 600;
+  letter-spacing: 0;
+  color: var(--graphite);
+
+  @media (width >= 68.75rem) {
+    font-size: 0.875rem;
+    line-height: 1.125rem;
+    font-weight: 400;
+  }
+}
+
+@utility pdp-rec-price {
+  font-size: 0.625rem;
+  line-height: 0.8125rem;
+  font-weight: 600;
+  letter-spacing: 0;
+  color: var(--graphite);
+
+  @media (width >= 68.75rem) {
+    font-size: 0.875rem;
+    line-height: 1.125rem;
+    font-weight: 400;
+  }
+}
+
+@utility pdp-rec-heading {
+  font-size: 0.75rem;
+  line-height: 1rem;
+  font-weight: 500;
+  letter-spacing: 0;
+  color: var(--ink);
+
+  @media (width >= 68.75rem) {
+    font-weight: 600;
+    color: var(--graphite);
+  }
+}
+
+@utility footer-heading {
+  font-size: 0.75rem;
   line-height: 1.125rem;
   font-weight: 400;
   letter-spacing: 0;
-  color: var(--graphite);
+  color: var(--ink-muted);
+  text-transform: uppercase;
 }
 
 @utility nav-link {
@@ -531,4 +573,11 @@
 
 .nav-link:hover {
   opacity: 0.6;
+}
+
+/* The upload studio is taller than the viewport on small screens; keep momentum
+   scrolling reliable inside the sheet and stop the page behind it from chaining. */
+.studio-scroll {
+  -webkit-overflow-scrolling: touch;
+  overscroll-behavior: contain;
 }

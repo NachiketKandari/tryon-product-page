@@ -10,8 +10,11 @@ export function Recommendations({ items }: { items: Recommendation[] }) {
 
   return (
     <section className="mt-6 py-10 desktop:py-20" id="recommendations">
-      <p className="pdp-title px-(--gutter)">You may also like</p>
-      <div className="scrollbar-hide mt-2.5 flex snap-x overflow-x-auto desktop:mt-5 desktop:grid desktop:grid-cols-4 desktop:overflow-visible">
+      <p className="pdp-rec-heading px-(--gutter)">You may also like</p>
+      <div
+        className="scrollbar-hide mt-2.5 flex snap-x overflow-x-auto desktop:mt-5 desktop:grid desktop:grid-cols-4 desktop:overflow-visible"
+        data-testid="recommendations-track"
+      >
         {items.map((item) => (
           <button
             className="group block w-1/2 shrink-0 snap-start border-r border-rule text-left last:border-r-0 desktop:w-auto desktop:border-0"
@@ -45,9 +48,9 @@ export function Recommendations({ items }: { items: Recommendation[] }) {
                 src={item.image.src}
               />
             </div>
-            <div className="mt-4 grid gap-2 px-2 desktop:px-6">
-              <p className="pdp-rec truncate">{item.title}</p>
-              <p className="pdp-rec">{formatInr(item.price)}</p>
+            <div className="mt-4 grid gap-2 px-2 desktop:mt-6 desktop:px-6">
+              <p className="pdp-rec-name truncate">{item.title}</p>
+              <p className="pdp-rec-price">{formatInr(item.price)}</p>
             </div>
           </button>
         ))}

@@ -111,8 +111,8 @@ export function SiteHeader() {
   return (
     <>
       <header className="sticky top-0 z-(--z-header) h-(--header-bar-h)" data-app-header>
-        <div className="h-full border-b border-rule bg-paper">
-          <div className="grid h-full grid-cols-[auto_1fr_auto] items-center gap-3 px-(--gutter) desktop:grid-cols-[1fr_auto_1fr]">
+        <div className="h-full border-b border-ink bg-paper desktop:border-b-0">
+          <div className="grid h-full grid-cols-[auto_1fr_auto] items-center gap-2 px-(--gutter) desktop:grid-cols-[1fr_auto_1fr] desktop:gap-3">
             <div className="flex min-w-0 items-center gap-2.5">
               <nav aria-label="Main menu" className="hidden desktop:block">
                 <ul className="flex items-center gap-6" role="list">
@@ -136,7 +136,7 @@ export function SiteHeader() {
 
               <button
                 aria-label="Open menu"
-                className="type-label focus-ring flex h-[43px] items-center border border-ink px-2.5 uppercase desktop:hidden"
+                className="type-body focus-ring flex h-[43px] items-center border border-ink px-2 uppercase text-[13px] desktop:hidden"
                 onClick={() => setMenuOpen(true)}
                 type="button"
               >
@@ -149,9 +149,12 @@ export function SiteHeader() {
               className="flex min-h-9 shrink-0 items-center justify-self-center"
               href="/"
             >
+              <span className="flex h-[27px] items-center whitespace-nowrap text-[15px] font-medium tracking-[0.03em] uppercase desktop:hidden">
+                Lorem Ipsum
+              </span>
               <Image
                 alt="Lorem Ipsum"
-                className="h-auto w-[125px] desktop:w-[303px]"
+                className="hidden h-auto w-[303px] desktop:block"
                 height={82}
                 priority
                 src="/brand/wordmark.png"
@@ -192,14 +195,14 @@ export function SiteHeader() {
               </button>
 
               <button
-                className="type-label focus-ring flex h-[43px] items-center gap-1.5 border border-ink px-2.5 uppercase desktop:hidden"
+                className="type-body focus-ring flex h-[43px] items-center gap-1 border border-ink px-2 uppercase text-[13px] desktop:hidden"
                 onClick={() => setOpen(true)}
                 type="button"
               >
                 Bag <span className="tabular-nums">({count})</span>
               </button>
               <button
-                className="type-label focus-ring flex h-[43px] items-center border border-ink px-2.5 uppercase desktop:hidden"
+                className="type-body focus-ring flex h-[43px] items-center border border-ink px-2 uppercase text-[13px] desktop:hidden"
                 onClick={openHelp}
                 type="button"
               >
