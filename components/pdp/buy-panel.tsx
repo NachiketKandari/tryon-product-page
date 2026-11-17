@@ -122,7 +122,7 @@ export function BuyPanel({ hasUserImages, onTryOn, outOfStock, product }: BuyPan
                     <input
                       aria-label="Email for the waitlist"
                       className="type-body h-11 border border-ink px-3"
-                      placeholder="your e-mail"
+                      placeholder="Your Email"
                       type="email"
                     />
                     <button

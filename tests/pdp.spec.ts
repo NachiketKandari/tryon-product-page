@@ -140,7 +140,7 @@ test.describe("PDP", () => {
     await expect(page.getByTestId("info-sheet")).toContainText("Try-on images stay in your browser");
     await page.getByTestId("info-sheet").getByRole("button", { name: "Close panel" }).click();
 
-    await page.getByLabel("Your e-mail").fill("test@example.com");
+    await page.getByLabel("Your Email").fill("test@example.com");
     await page.getByRole("button", { name: "Subscribe" }).click();
     await expect(page.getByText("Thank you — you are on the list.")).toBeVisible();
   });

@@ -138,7 +138,7 @@ export function SiteFooter() {
               }}
             >
               <label className="sr-only" htmlFor="newsletter-email">
-                Your e-mail
+                Your Email
               </label>
               <input
                 className="type-body min-w-0 flex-1 bg-transparent py-1 placeholder:text-ink-muted focus:outline-none"
@@ -147,7 +147,7 @@ export function SiteFooter() {
                   setEmail(event.target.value);
                   setSubscribed(false);
                 }}
-                placeholder="your e-mail"
+                placeholder="Your Email"
                 suppressHydrationWarning
                 type="email"
                 value={email}

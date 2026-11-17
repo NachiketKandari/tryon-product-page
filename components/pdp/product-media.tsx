@@ -162,7 +162,7 @@ export function ProductMedia({
             ) : (
               <Image
                 alt={hero.alt}
-                className="bg-paper object-contain"
+                className="bg-paper object-cover object-center"
                 fill
                 priority
                 sizes="(min-width: 1100px) 56vw, 100vw"
