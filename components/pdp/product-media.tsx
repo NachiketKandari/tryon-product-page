@@ -25,10 +25,9 @@ export function ProductMedia({
   const showingUserImages = userImages.length > 0;
   const mobileSlides = showingUserImages ? userImages : images.map((image) => image.src);
   const desktopHero = showingUserImages ? userImages[0] : hero.src;
-  const desktopTiles = (showingUserImages
+  const desktopTiles = showingUserImages
     ? userImages.slice(1)
-    : productTiles.map((image) => image.src)
-  ).slice(0, 4);
+    : productTiles.map((image) => image.src);
   const userTileCount = showingUserImages ? desktopTiles.length : 0;
 
   useEffect(() => {
@@ -109,7 +108,7 @@ export function ProductMedia({
 
       <div className="mt-3 flex items-center justify-between px-(--gutter) desktop:hidden">
         <div aria-label="Product images" className="flex gap-1.5" role="tablist">
-          {mobileSlides.map((_, index) => (
+          {(mobileSlides.length <= 8 ? mobileSlides : []).map((_, index) => (
             <span
               aria-selected={index === active}
               className={`h-1 w-6 transition-colors ${index === active ? "bg-ink" : "bg-rule"}`}

@@ -44,9 +44,9 @@ npx vercel --prod # production
 | Step | What happens |
 | ---- | ------------ |
 | Entry points | “Upload your images” in the buy column, the pill on the hero, and the upload button on the mobile hero. |
-| Bulk upload | File picker (`multiple`), camera capture, or drag-and-drop. Up to **5 images**, 12 MB each, JPG/PNG/WebP/HEIC. |
-| Auto-arrange | Image 1 → enlarged hero (800 × 1432 desktop, 2:3 mobile). Images 2–5 → the two-up gallery grid. Uploaded images use `object-contain`, so the whole photo is visible — never cropped. |
-| Rearrange | In the studio: drag rows, use ↑ / ↓, or promote any image with **Hero**. |
+| Bulk upload | File picker (`multiple`), camera capture, or drag-and-drop. **No image cap** (12 MB each, JPG/PNG/WebP/HEIC). |
+| Auto-arrange | Image 1 → enlarged hero (800 × 1432 desktop, 2:3 mobile). Every later image → the two-up gallery grid, growing in pairs. Uploaded images use `object-contain`, so the whole photo is visible — never cropped. |
+| Rearrange | In the studio: drag rows, use ↑ / ↓, or promote any image with **Hero**. The cap is deliberately absent — the layout extends for as many images as you add. |
 | Apply | “Add N images to the page” replaces the product media. “Reset to product photos” restores them. |
 | Scrolling | The studio sheet is a single scroll container on both mobile and desktop (`studio-scroll`, `overscroll-contain`); the page scroll is restored when it closes. |
 | Persistence | `blob:` URLs only — refreshing the page clears the images (privacy by default). |
@@ -60,7 +60,7 @@ The studio lives in `components/try-on/try-on-studio.tsx`; the gallery swap live
 
 - desktop **and** Pixel 5 mobile projects;
 - gallery geometry (one hero + two-up), no-crop containment, recommendations 2-up scroller;
-- upload: 1 image, bulk 5, reorder/promote, reset, scroll inside the sheet, body-scroll unlock;
+- upload: 1 image, bulk 5, 6+ (no cap), reorder/promote, reset, scroll inside the sheet, body-scroll unlock;
 - size guide, accordions, size → add to bag → checkout feedback, search, wishlist, category/help
   panels, footer policies, newsletter, mobile menu;
 - a final sweep that every visible button has a name and no `href="#"` links remain.

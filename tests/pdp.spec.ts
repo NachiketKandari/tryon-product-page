@@ -7,6 +7,7 @@ const FIXTURES = [
   "public/images/product/dress-detail-front.jpeg",
   "public/images/product/dress-detail-back.jpeg",
   "public/images/product/dress-detail-hem.jpeg",
+  "public/images/recommendations/big-collar-shirt.jpeg",
 ].map((file) => path.resolve(file));
 
 async function openStudio(page: Page) {
@@ -247,6 +248,20 @@ test.describe("PDP", () => {
     const before = await page.evaluate(() => window.scrollY);
     await page.mouse.wheel(0, 900);
     await expect.poll(() => page.evaluate(() => window.scrollY)).toBeGreaterThan(before);
+  });
+
+  test("accepts more than five images and grows the two-up grid", async ({ page }, testInfo) => {
+    await page.goto("/");
+    await openStudio(page);
+    await addImages(page, 6);
+    await expect(page.locator('[data-testid="studio-dialog"] li')).toHaveCount(6);
+
+    await applyImages(page, 6);
+    await expect(page.locator('img[alt*="Your uploaded"]:visible')).toHaveCount(6);
+
+    if (testInfo.project.name === "desktop") {
+      await expect(page.getByTestId("pdp-gallery").locator("figure:visible")).toHaveCount(5);
+    }
   });
 
   test("uploaded images are contained, not cropped", async ({ page }, testInfo) => {

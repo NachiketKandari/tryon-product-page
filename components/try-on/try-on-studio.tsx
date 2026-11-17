@@ -14,7 +14,6 @@ import { useEffect, useRef, useState } from "react";
 
 import { formatInr, type Product } from "@/lib/catalog";
 
-const MAX_FILES = 5;
 const MAX_BYTES = 12 * 1024 * 1024;
 
 interface TryOnStudioProps {
@@ -70,14 +69,13 @@ export function TryOnStudio({
         setError("Some files were skipped — each image must be under 12 MB.");
         continue;
       }
-      if (drafts.length + accepted.length >= MAX_FILES) break;
       const url = URL.createObjectURL(file);
       created.current.add(url);
       accepted.push(url);
     }
 
     if (accepted.length > 0) {
-      setDrafts((current) => [...current, ...accepted].slice(0, MAX_FILES));
+      setDrafts((current) => [...current, ...accepted]);
       setError(null);
     }
   }
@@ -242,8 +240,8 @@ export function TryOnStudio({
                 <div className="grid gap-2">
                   <p className="type-h3">Add your images</p>
                   <p className="type-body-sm max-w-[36ch] text-ink-muted">
-                    The first image is shown enlarged on the product page. Up to four more sit
-                    two-up in the gallery, exactly like the design.
+                    The first image is shown enlarged on the product page. Every image after it
+                    sits two-up in the gallery, in the order you arrange them.
                   </p>
                 </div>
                 <div className="flex flex-wrap justify-center gap-2">
@@ -265,7 +263,7 @@ export function TryOnStudio({
                   </button>
                 </div>
                 <p className="type-label text-ink-muted">
-                  JPG, PNG or WebP · up to 12 MB · {MAX_FILES} images max
+                  JPG, PNG or WebP · up to 12 MB each · add as many as you like
                 </p>
               </div>
             )}
@@ -322,7 +320,7 @@ export function TryOnStudio({
               <p className="type-label text-ink-muted">01 — Add your images</p>
               <p className="pdp-copy text-ink-muted">
                 Upload the images you want to see on the product page. The first becomes the
-                enlarged hero; the rest are placed two per row beneath it.
+                enlarged hero; every image after it is placed two per row beneath.
               </p>
             </div>
 
@@ -349,9 +347,7 @@ export function TryOnStudio({
             <div className="grid gap-2">
               <div className="flex items-baseline justify-between">
                 <p className="type-label text-ink-muted">Your gallery</p>
-                <p className="type-label text-ink-muted tabular-nums">
-                  {drafts.length} / {MAX_FILES}
-                </p>
+                <p className="type-label text-ink-muted tabular-nums">{drafts.length}</p>
               </div>
 
               {drafts.length > 0 ? (
@@ -427,7 +423,7 @@ export function TryOnStudio({
                   type="button"
                 >
                   <ImagePlus className="size-4" strokeWidth={1.25} />
-                  <span className="type-label">Add up to 5 at once</span>
+                  <span className="type-label">Choose images</span>
                 </button>
               )}
 
