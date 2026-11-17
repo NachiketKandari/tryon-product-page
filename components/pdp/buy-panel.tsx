@@ -5,11 +5,13 @@ import { useState } from "react";
 
 import { SizeGuide } from "@/components/pdp/size-guide";
 import { useBag } from "@/components/site/bag-provider";
+import { useFeedback } from "@/components/site/feedback-provider";
 import { formatAmount, type Product } from "@/lib/catalog";
 
 interface BuyPanelProps {
   hasUserImages: boolean;
   onTryOn: () => void;
+  outOfStock: boolean;
   product: Product;
 }
 
@@ -36,8 +38,9 @@ function AccordionRow({
   );
 }
 
-export function BuyPanel({ hasUserImages, onTryOn, product }: BuyPanelProps) {
+export function BuyPanel({ hasUserImages, onTryOn, outOfStock, product }: BuyPanelProps) {
   const { add } = useBag();
+  const { info } = useFeedback();
   const [size, setSize] = useState<string | null>(null);
   const [sizeGuideOpen, setSizeGuideOpen] = useState(false);
   const lowStock = size ? product.lowStockSizes.includes(size) : false;
@@ -78,12 +81,15 @@ export function BuyPanel({ hasUserImages, onTryOn, product }: BuyPanelProps) {
               const selected = size === option;
               return (
                 <button
-                  aria-pressed={selected}
+                  aria-pressed={!outOfStock && selected}
                   className={`pdp-label flex h-[26px] min-w-8 items-center justify-center border px-1.5 transition-colors focus-ring desktop:h-11 desktop:px-4 ${
-                    selected
-                      ? "border-ink bg-ink text-inverse"
-                      : "border-ink text-ink hover:border-ink desktop:border-[#DCDCDC] desktop:text-ink-muted desktop:hover:text-ink"
+                    outOfStock
+                      ? "cursor-not-allowed border-[#DCDCDC] bg-[#F2F2F2] text-[#DCDCDC]"
+                      : selected
+                        ? "border-ink bg-ink text-inverse"
+                        : "border-ink text-ink hover:border-ink desktop:border-[#DCDCDC] desktop:text-ink-muted desktop:hover:text-ink"
                   }`}
+                  disabled={outOfStock}
                   key={option}
                   onClick={() => setSize(option)}
                   type="button"
@@ -94,7 +100,7 @@ export function BuyPanel({ hasUserImages, onTryOn, product }: BuyPanelProps) {
             })}
           </div>
 
-          {lowStock ? (
+          {!outOfStock && lowStock ? (
             <p aria-live="polite" className="pdp-label mt-3 text-ink desktop:text-[#A66100]">
               Only 1 left in stock
             </p>
@@ -102,26 +108,59 @@ export function BuyPanel({ hasUserImages, onTryOn, product }: BuyPanelProps) {
         </fieldset>
 
         <div className="grid gap-2.5">
-          <button
-            className={`pdp-cta flex h-12 w-full items-center justify-center ${
-              size
-                ? "bg-[#353535] text-inverse hover:bg-ink"
-                : "cursor-not-allowed bg-[#DFDFDF] text-white"
-            }`}
-            disabled={!size}
-            onClick={() => {
-              if (!size) return;
-              add({
-                image: product.images[0].src,
-                price: product.price,
-                size,
-                title: product.title,
-              });
-            }}
-            type="button"
-          >
-            {size ? "Add to cart" : "Select size"}
-          </button>
+          {outOfStock ? (
+            <button
+              className="pdp-cta flex h-[50px] w-full items-center justify-center border border-[#353535] text-[#353535] transition-colors hover:bg-[#353535] hover:text-inverse focus-ring"
+              onClick={() =>
+                info(
+                  "Notify me when available",
+                  <div className="grid gap-4">
+                    <p className="pdp-copy text-ink-muted">
+                      The {product.title} is currently out of stock. Leave your email and the
+                      client team will write the moment it returns.
+                    </p>
+                    <input
+                      aria-label="Email for the waitlist"
+                      className="type-body h-11 border border-ink px-3"
+                      placeholder="your e-mail"
+                      type="email"
+                    />
+                    <button
+                      className="pdp-cta flex h-11 items-center justify-center bg-[#353535] uppercase text-inverse"
+                      onClick={() => info("You are on the list", <p className="pdp-copy text-ink-muted">We will write to you as soon as the {product.title} is back in stock.</p>)}
+                      type="button"
+                    >
+                      Notify me
+                    </button>
+                  </div>,
+                )
+              }
+              type="button"
+            >
+              Notify me when available
+            </button>
+          ) : (
+            <button
+              className={`pdp-cta flex h-12 w-full items-center justify-center ${
+                size
+                  ? "bg-[#353535] text-inverse hover:bg-ink"
+                  : "cursor-not-allowed bg-[#DFDFDF] text-white"
+              }`}
+              disabled={!size}
+              onClick={() => {
+                if (!size) return;
+                add({
+                  image: product.images[0].src,
+                  price: product.price,
+                  size,
+                  title: product.title,
+                });
+              }}
+              type="button"
+            >
+              {size ? "Add to cart" : "Select size"}
+            </button>
+          )}
 
           <button
             className="pdp-cta flex h-12 w-full items-center justify-center gap-2 border border-[#353535] text-[#353535] transition-colors hover:bg-[#353535] hover:text-inverse focus-ring"

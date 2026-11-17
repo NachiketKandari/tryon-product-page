@@ -10,6 +10,7 @@ interface ProductMediaProps {
   images: ProductImage[];
   onRemoveUserImage: (index: number) => void;
   onTryOn: () => void;
+  outOfStock: boolean;
   userImages: string[];
 }
 
@@ -17,6 +18,7 @@ export function ProductMedia({
   images,
   onRemoveUserImage,
   onTryOn,
+  outOfStock,
   userImages,
 }: ProductMediaProps) {
   const trackRef = useRef<HTMLDivElement>(null);
@@ -46,7 +48,9 @@ export function ProductMedia({
     <div className="relative" data-testid="pdp-gallery">
       {/* Mobile: 2:3 snap carousel, full-bleed */}
       <div
-        className="scrollbar-hide flex snap-x snap-mandatory overflow-x-auto desktop:hidden"
+        className={`scrollbar-hide flex snap-x snap-mandatory overflow-x-auto desktop:hidden ${
+          outOfStock ? "opacity-60 grayscale" : ""
+        }`}
         onScroll={handleScroll}
         ref={trackRef}
       >
@@ -130,7 +134,9 @@ export function ProductMedia({
       </div>
 
       {/* Desktop: enlarged first image over a two-up tile grid */}
-      <div className="hidden desktop:block desktop:pt-[75px]">
+      <div
+        className={`hidden desktop:block desktop:pt-[75px] ${outOfStock ? "opacity-60 grayscale" : ""}`}
+      >
         <div className="border border-ink">
           <div className="relative aspect-[800/1432] w-full overflow-hidden bg-surface">
             {showingUserImages ? (

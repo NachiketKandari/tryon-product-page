@@ -265,6 +265,28 @@ test.describe("PDP", () => {
     }
   });
 
+  test("out-of-stock toggle greys apparel and switches the buy state", async ({ page }) => {
+    await page.goto("/");
+    await page.getByRole("button", { name: "Out of stock" }).click();
+
+    await expect(page.getByTestId("pdp-gallery").locator(".grayscale:visible").first()).toBeVisible();
+    await expect(page.getByTestId("recommendations-track").locator(".grayscale")).toHaveCount(0);
+
+    await expect(page.getByRole("button", { name: "M", exact: true })).toBeDisabled();
+    await expect(page.getByRole("button", { name: "Notify me when available" })).toBeVisible();
+    await expect(page.getByText("Only 1 left in stock")).toHaveCount(0);
+
+    await page.getByRole("button", { name: "Notify me when available" }).click();
+    await expect(page.getByTestId("info-sheet")).toContainText("currently out of stock");
+    await page.keyboard.press("Escape");
+    await expect(page.getByTestId("info-sheet")).toHaveCount(0);
+
+    await page.getByRole("button", { name: "Back in stock" }).click();
+    await expect(page.getByRole("button", { name: "Select size" })).toBeVisible();
+    await expect(page.getByRole("button", { name: "M", exact: true })).toBeEnabled();
+    await expect(page.getByTestId("pdp-gallery").locator(".grayscale")).toHaveCount(0);
+  });
+
   test("uploaded images are contained, not cropped", async ({ page }, testInfo) => {
     await page.goto("/");
     await openStudio(page);

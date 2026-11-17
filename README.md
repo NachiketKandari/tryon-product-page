@@ -54,6 +54,13 @@ npx vercel --prod # production
 The studio lives in `components/try-on/try-on-studio.tsx`; the gallery swap lives in
 `components/pdp/product-media.tsx`.
 
+## Demo states
+
+A compact **Demo state** bar sits above the product. **Out of stock** greys the apparel only (the
+recommendation row, footer and chrome stay in colour), disables every size chip and swaps the CTA
+for the design’s outlined **Notify me when available** panel. **Back in stock** restores it. Size
+**M** carries the designed low-stock state (`Only 1 left in stock`) when in stock.
+
 ## Tests
 
 `npm run test:e2e` runs a headless Chromium suite against a production build on port 3100:

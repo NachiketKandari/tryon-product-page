@@ -17,9 +17,24 @@ export function PdpExperience({
 }) {
   const [userImages, setUserImages] = useState<string[]>([]);
   const [studioOpen, setStudioOpen] = useState(false);
+  const [outOfStock, setOutOfStock] = useState(false);
 
   return (
     <>
+      <div className="flex h-10 items-center justify-between border-b border-rule px-(--gutter)">
+        <p className="type-label text-ink-muted">Demo state</p>
+        <button
+          aria-pressed={outOfStock}
+          className={`type-label flex h-7 items-center border px-3 uppercase transition-colors focus-ring ${
+            outOfStock ? "border-ink bg-ink text-inverse" : "border-rule text-ink-muted hover:border-ink hover:text-ink"
+          }`}
+          onClick={() => setOutOfStock((current) => !current)}
+          type="button"
+        >
+          {outOfStock ? "Back in stock" : "Out of stock"}
+        </button>
+      </div>
+
       <section className="grid desktop:grid-cols-[800fr_592fr] desktop:px-(--gutter)" id="product">
         <div>
           <ProductMedia
@@ -28,12 +43,14 @@ export function PdpExperience({
               setUserImages((current) => current.filter((_, entryIndex) => entryIndex !== index))
             }
             onTryOn={() => setStudioOpen(true)}
+            outOfStock={outOfStock}
             userImages={userImages}
           />
         </div>
         <BuyPanel
           hasUserImages={userImages.length > 0}
           onTryOn={() => setStudioOpen(true)}
+          outOfStock={outOfStock}
           product={product}
         />
       </section>
